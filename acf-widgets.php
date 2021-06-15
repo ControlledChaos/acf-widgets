@@ -139,3 +139,34 @@ if ( ! Classes\acfw_php()->version() ) {
 
 // Get the plugin initialization file.
 require_once ACFW_PATH . 'init.php';
+
+define( 'ACFW_STORE_URL', 'https://acfwidgets.com' );
+define( 'ACFW_ITEM_NAME', 'ACF Widgets' );
+define( 'ACFW_FILE' , __FILE__ );
+
+add_action('after_setup_theme', __NAMESPACE__ . '\acfw_globals');
+function acfw_globals(){
+	if ( apply_filters( 'acfw_lite', false ) )
+		define( 'ACFW_LITE', false );
+	if ( apply_filters( 'acfw_include', false ) )
+		define('ACFW_INCLUDE', true);
+}
+
+// Check to see if ACF is active
+include_once('includes/acf-404.php');
+
+
+$GLOBALS['acfw_default_widgets'] = array('pages', 'calendar', 'archives', 'meta', 'search', 'text', 
+	'categories', 'recent-posts', 'recent-comments', 'rss', 'tag_cloud', 'nav_menu');
+
+include_once('includes/helper-functions.php');
+
+include_once('includes/admin-setup.php');
+
+require_once('includes/classes/core/ACFW_Widget.php');
+
+require_once('includes/classes/core/ACFW_Widget_Factory.php');
+
+include_once('includes/widgets-setup.php');
+
+include_once('includes/default-widgets.php');
